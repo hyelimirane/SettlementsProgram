@@ -1,0 +1,13 @@
+<template name="settlementsList">
+    <div class="posts">
+        {{#each settlements}}
+            {{> settlementItem}}
+        {{/each}}
+
+        {{#if nextPath}}
+            <a class="load-more" href="{{nextPath}}">Load more</a>
+        {{else}}
+
+        {{/if}}
+    </div>
+</template>

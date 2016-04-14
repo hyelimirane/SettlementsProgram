@@ -1,0 +1,53 @@
+<template name="settlementDoIt">
+    <form class="main form">
+        <div class="form-group">
+            <div class="controls">
+                <label class="control-label" for="dateSettlement">정산일자</label>
+                <div class="input-group datetimepicker">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    <input name="dateSettlement" id="dateSettlement" type="text" value="" placeholder=" 정산일자" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="controls">
+                <label class="control-label" for="category">Category</label>
+                <select name="category" id="category" class="form-control">
+                    <option value="all">전체</option>
+                    <option value="foodExpenses">식비</option>
+                    <option value="goodsExpenses">물품</option>
+                </select>
+            </div>
+        </div>
+        <div id="showNakami" style="display: none">
+            <div class="form-group">
+                <div class="controls">
+                    <label class="control-label" for="totalPrice">총금액</label>
+                    <span id="totalPrice" class="form-control"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="controls">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <th style="text-align:center">구매일자</th>
+                            <th style="text-align:center">내용</th>
+                            <th style="text-align:center">구매금액</th>
+                            <th style="text-align:center">구매인원</th>
+                            <th style="text-align:center">할당액</th>
+                            <th style="text-align:center">내가 낸 금액</th>
+                            <th style="text-align:center">정산액</th>
+                        </thead>
+                        <tbody id="list"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="controls">
+                    <label class="control-label" for="adjustedAmount">총정산액</label>
+                    <span id="adjustedAmount" class="form-control"></span>
+                </div>
+            </div>
+        </div>
+    </form>
+</template>

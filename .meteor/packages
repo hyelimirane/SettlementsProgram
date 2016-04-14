@@ -1,0 +1,28 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+meteor-base             # Packages every Meteor app needs to have
+mobile-experience       # Packages for a great mobile UX
+mongo                   # The database Meteor supports right now
+blaze-html-templates    # Compile .html files into Meteor Blaze views
+session                 # Client-side reactive dictionary for your app
+jquery                  # Helpful client-side library
+tracker                 # Meteor's client-side reactive programming library
+
+standard-minifiers      # JS/CSS minifiers run for production mode
+es5-shim                # ECMAScript 5 compatibility for older browsers.
+ecmascript              # Enable ECMAScript2015+ syntax in app code
+
+iron:router             # routing, filtering, publish manage
+mizzao:bootstrap-3      #
+sacha:spin              # loading template
+ian:accounts-ui-bootstrap-3         # user manage library
+accounts-password                   # user manage library
+audit-argument-checks               # security
+check
+tsega:bootstrap3-datetimepicker     # datepicker
+cfs:standard-packages               # https://github.com/CollectionFS/Meteor-CollectionFS
+cfs:gridfs                          # https://github.com/CollectionFS/Meteor-CollectionFS/tree/devel/packages/gridfs
