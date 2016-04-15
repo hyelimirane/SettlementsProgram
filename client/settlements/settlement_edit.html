@@ -48,12 +48,13 @@
         </div>
         <div class="form-group">
             <div class="controls">
-                {{receipt.name}}
+                <label class="control-label" for="">영수증</label>
+                {{receipt.name}}<br>
                 <a href="{{receipt.url}}" target="_blank"><img src="{{receipt.url}}" alt="" width="200px" height="300px" /></a>
                 <input type="hidden" id="receiptID" name="receiptID" value="{{receipt._id}}">
             </div>
             <div class="controls">
-                <label class="control-label" for="">영수증첨부</label>
+                <label class="control-label" for="">영수증 새로 첨부</label>
                 <input type="file" name="attachReceipt" id="attachReceipt" class="form-control myFileInput">
             </div>
         </div>

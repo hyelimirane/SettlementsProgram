@@ -3,41 +3,41 @@
         <div class="post-content">
             <div class="showNakami">
                 <h3><a href="#">{{dateSettlement}}, {{orderSummary}}</a></h3>
-                <div id="nakami_{{_id}}" name="nakami" style="display:none">
-                    <div class="form-group">
-                        <div class="controls">
-                            <label class="control-label" for="dateOrdered">구매일자</label>
-                            <span>{{dateOrdered}}</span><br>
-                        </div>
-                        <div class="controls">
-                            <label class="control-label" for="category">category</label>
-                            <span>{{category}}</span><br>
-                        </div>
-                        <div class="controls">
-                            <label class="control-label" for="purchaser">구매자</label>
-                            <span>{{purchaser}}</span><br>
-                        </div>
-                        <div class="controls">
-                            <label class="control-label" for="orderSummary">구매내역</label>
-                            <span>{{orderSummary}}</span><br>
-                        </div>
-                        <div class="controls">
-                            <label class="control-label" for="orderPrice">금액</label>
-                            <span>{{orderPrice}}</span><br>
-                            <label class="control-label" for="category">영수증</label>
-                        </div>
-                        <div class="controls">
-                                <a href="{{receipt.url}}" target="_blank"><img src="{{receipt.url}}" alt="" width="200px" height="300px" /></a>
-                        </div>
-                        <div class="controls">
-                            <label class="control-label" for="category">정산여부</label>
-                            <span>{{settlementCompleted}}</span>
-                                {{#if ownPost}}
-                                    {{#if showSCBtn}}
-                                        <button id="scBtn" class="btn btn-mini btn-primary" type="button">정산</button>
-                                    {{/if}}
+            </div>
+            <div id="nakami_{{_id}}" name="nakami" style="display:none">
+                <div class="form-group">
+                    <div class="controls">
+                        <label class="control-label" for="dateOrdered">구매일자</label>
+                        <span>{{dateOrdered}}</span><br>
+                    </div>
+                    <div class="controls">
+                        <label class="control-label" for="category">category</label>
+                        <span>{{category}}</span><br>
+                    </div>
+                    <div class="controls">
+                        <label class="control-label" for="purchaser">구매자</label>
+                        <span>{{purchaser}}</span><br>
+                    </div>
+                    <div class="controls">
+                        <label class="control-label" for="orderSummary">구매내역</label>
+                        <span>{{orderSummary}}</span><br>
+                    </div>
+                    <div class="controls">
+                        <label class="control-label" for="orderPrice">금액</label>
+                        <span>{{orderPrice}}</span><br>
+                    </div>
+                    <div class="controls">
+                        <label class="control-label" for="category">영수증</label>
+                        <a href="{{receipt.url}}" target="_blank"><img src="{{receipt.url}}" alt="" width="200px" height="300px" /></a>
+                    </div>
+                    <div class="controls">
+                        <label class="control-label" for="category">정산여부</label>
+                        <span>{{settlementCompleted}}</span>
+                            {{#if ownPost}}
+                                {{#if showSCBtn}}
+                                    <button id="scBtn" class="btn btn-mini btn-primary" type="button">정산</button>
                                 {{/if}}
-                        </div>
+                            {{/if}}
                     </div>
                 </div>
             </div>
