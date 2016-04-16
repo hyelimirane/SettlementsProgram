@@ -90,4 +90,20 @@ Template.settlementItem.events({
         });
     },
 
+    'click #delSettlement' : function(e){
+        e.preventDefault();
+
+        if(confirm('삭제하시겠습니까?')){
+            Meteor.call('settlementRemove', this._id, function(error, result){
+
+                if(error) {
+                    console.log('error!');
+                    return throwError(error.reason);
+                }else{
+                    alert('삭제 되었습니다!');
+
+                }
+            });
+        }
+    },
 });
