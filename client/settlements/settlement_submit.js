@@ -36,6 +36,25 @@ Template.settlementSubmit.events({
             }
         });
 
+        var count = function(){
+            var cnt = 0;
+            $(e.target).find('[name=communalPurchaser]').each(function(){
+                if(this.checked) { cnt++; }
+            });
+            return cnt;
+        };
+
+        var total = Number($(e.target).find('[name=orderPrice]').val());
+
+        var communalPurchaserChecked =[];
+        $(e.target).find('[name=communalPurchaser]').each(function(){
+            var sharePrice = 0;
+            if(this.checked){
+                sharePrice = total / count();
+            }
+            communalPurchaserChecked.push({value: this.value, text:this.attributes.text.value, checked :this.checked, sharePrice: sharePrice})
+        });
+
         //categoryOptions = JSON.stringify(categoryOptions).replace(/\\/g, "");
         //purchaserOptions = JSON.stringify(purchaserOptions).replace(/\\/g, "");
 
@@ -48,6 +67,7 @@ Template.settlementSubmit.events({
             orderPrice : $(e.target).find('[name=orderPrice]').val(),
             //attachReceipt : $(e.target).find('[name=attachReceipt]').val(),
             purchaser : purchaserOptions,
+            communalPurchaser : communalPurchaserChecked,
             settlementCompleted : false
         };
 

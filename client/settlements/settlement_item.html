@@ -8,25 +8,33 @@
                 <div class="form-group">
                     <div class="controls">
                         <label class="control-label" for="dateOrdered">구매일자</label>
-                        <span>{{dateOrdered}}</span><br>
+                        <span>{{dateOrdered}}</span>
                     </div>
                     <div class="controls">
                         <label class="control-label" for="category">category</label>
-                        <span>{{category}}</span><br>
+                        <span>{{category}}</span>
                     </div>
                     <div class="controls">
-                        <label class="control-label" for="purchaser">구매자</label>
-                        <span>{{purchaser}}</span><br>
+                        <label class="control-label" for="purchaser">지불한 사람</label>
+                        <span>{{purchaser}}</span>
+                    </div>
+                    <div class="controls">
+                        <label class="control-label" for="communalPurchaser">공동 구매자</label>
+                        <div class="row" style="float: right; margin-left: -10px;">
+                            {{#each communalPurchaser}}
+                                {{>communalPurchasers}}
+                            {{/each}}
+                        </div>
                     </div>
                     <div class="controls">
                         <label class="control-label" for="orderSummary">구매내역</label>
-                        <span>{{orderSummary}}</span><br>
+                        <span>{{orderSummary}}</span>
                     </div>
                     <div class="controls">
                         <label class="control-label" for="orderPrice">금액</label>
-                        <span>{{orderPrice}}</span><br>
+                        <span>{{orderPrice}} 원</span>
                     </div>
-                    <div class="controls">
+                    <div class="controls" style="margin-bottom:5px;">
                         <label class="control-label" for="category">영수증</label>
                         <a href="{{receipt.url}}" target="_blank"><img src="{{receipt.url}}" alt="" width="200px" height="300px" /></a>
                     </div>
@@ -51,5 +59,11 @@
                 {{/if}}
             </p>
         </div>
+    </div>
+</template>
+
+<template name="communalPurchasers">
+    <div class="col-md-1" style="float: left">
+        <input type="checkbox" value="{{value}}" name="communalPurchaser" text="{{text}}" checked="{{checked}}" disabled > {{text}}
     </div>
 </template>

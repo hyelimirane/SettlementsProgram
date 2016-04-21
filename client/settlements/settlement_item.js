@@ -30,6 +30,10 @@ Template.settlementItem.helpers({
         return this.purchaser[0].text;
     },
 
+    communalPurchaser : function(){
+        return this.communalPurchaser;
+    },
+
     orderPrice : function() {
         return numberWithCommas(this.orderPrice);
     },

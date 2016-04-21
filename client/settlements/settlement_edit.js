@@ -42,15 +42,15 @@ Template.settlementEdit.helpers({
         }
         return Spacebars.SafeString(options);
     },
-
+    purchasersList : function(){
+        return this.settlementSelected[0].communalPurchaser;
+    },
     orderSummary: function(){
         return this.settlementSelected[0].orderSummary;
     },
-
     orderPrice: function(){
         return this.settlementSelected[0].orderPrice;
     },
-
     receipt : function(){
         return Images.findOne({_id: this.settlementSelected[0].attachReceipt});
     },
@@ -76,6 +76,22 @@ Template.settlementEdit.events({
             }
         });
 
+        var count = function(){
+            var cnt = 0;
+            $(e.target).find('[name=communalPurchaser]').each(function(){
+                if(this.checked) { cnt++; }
+            });
+            return cnt;
+        };
+
+        var total = Number($(e.target).find('[name=orderPrice]').val());
+
+        var communalPurchaserChecked =[];
+        $(e.target).find('[name=communalPurchaser]').each(function(){
+            debugger;
+            communalPurchaserChecked.push({value: this.value, text:this.attributes.text.value, checked :this.checked, sharePrice: total/count()})
+        });
+
         //categoryOptions = JSON.stringify(categoryOptions).replace(/\\/g, "");
         //purchaserOptions = JSON.stringify(purchaserOptions).replace(/\\/g, "");
 
@@ -88,6 +104,7 @@ Template.settlementEdit.events({
             orderPrice : $(e.target).find('[name=orderPrice]').val(),
             //attachReceipt : $(e.target).find('[name=attachReceipt]').val(),
             purchaser : purchaserOptions,
+            communalPurchaser : communalPurchaserChecked,
             settlementCompleted : false
         };
 
