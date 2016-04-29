@@ -1,25 +1,24 @@
 <template name="header">
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapse" data-toggle="collapse" data-target="#navigation">
-                    <span class="sr-only">Toggle Navigation</span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{pathFor 'settlementsList'}}">Settlement System</a>
-            </div>
-            <div class="collapse navbar-collapse" id="navigation">
-                <ul class="nav navbar-nav">
-                    {{#if currentUser}}
-                        <li><a href="{{pathFor 'settlementSubmit'}}">입력</a> </li>
-                        <li><a href="{{pathFor 'settlementDoIt'}}">정산</a> </li>
-                    {{/if}}
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    {{> loginButtons}}
-                </ul>
-            </div>
+    <div class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{{pathFor 'settlementsList'}}">Settlement System</a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle Navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
         </div>
-
-    </nav>
+        <div class="navbar-collapse collapse" id="navigation">
+            <ul class="nav navbar-nav">
+                {{#if currentUser}}
+                    <li><a href="{{pathFor 'settlementSubmit'}}">입력</a> </li>
+                    <li><a href="{{pathFor 'settlementDoIt'}}">정산</a> </li>
+                {{/if}}
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {{> loginButtons}}
+            </ul>
+        </div>
+    </div>
 </template>

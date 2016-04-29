@@ -17,6 +17,7 @@ numberWithCommas = function(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+// java Map과 같은 기능, 가져온 소스
 Map = function(){
     this.map = new Object();
 };
