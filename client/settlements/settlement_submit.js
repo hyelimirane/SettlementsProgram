@@ -16,9 +16,67 @@ Template.settlementSubmit.onRendered(function() {
     });
 });
 
+//Template.settlementSubmit.helpers({
+//    errorMessage: function(field) {
+//        return Session.get('settlementSubmitErrors')[field];
+//    },
+//    errorClass: function (field) {
+//        return !!Session.get('settlementSubmitErrors')[field] ? 'has-error' : '';
+//    }
+//});
+
 Template.settlementSubmit.events({
     'submit form' : function(e){
         e.preventDefault();
+
+        var count = function(){
+            var cnt = 0;
+            $(e.target).find('[name=communalPurchaser]').each(function(){
+                if(this.checked) { cnt++; }
+            });
+            return cnt;
+        };
+
+        var date1 = $(e.target).find('[name=dateOrdered]').val();
+        var date2 = $(e.target).find('[name=dateSettlement]').val();
+        var orderSummary = $(e.target).find('[name=orderSummary]').val();
+        var orderPrice = $(e.target).find('[name=orderPrice]').val();
+        var communalPurchaser = count();
+        var file = $('#attachReceipt').get(0).files[0];
+
+        if(date1 ===''){
+            alert("구매일을 확인 해 주세요.");
+            $("#dateOrdered").focus();
+            return false;
+        }
+
+        if(date2 === ''){
+            alert("정산일을 확인 해 주세요.");
+            $("#dateSettlement").focus();
+            return false;
+        }
+
+        if(orderSummary === ''){
+            alert("구매내역을 확인 해 주세요.");
+            $("#orderSummary").focus();
+            return false;
+        }
+
+        if(orderPrice === ''){
+            alert("금액을 확인 해 주세요.");
+            $("#orderPrice").focus();
+            return false;
+        }
+
+        if(communalPurchaser === 0){
+            alert("공동구매자를 확인 해 주세요.");
+            return false;
+        }
+
+        if(!file){
+            alert("첨부파일 확인 해 주세요.");
+            return false;
+        }
 
         var categoryOptions = [];
         categoryOptions.push({value:$(e.target).find('[name=category]').val(), text:$(e.target).find('[name=category] :selected').text(), selected:'selected'});
@@ -36,14 +94,6 @@ Template.settlementSubmit.events({
             }
         });
 
-        var count = function(){
-            var cnt = 0;
-            $(e.target).find('[name=communalPurchaser]').each(function(){
-                if(this.checked) { cnt++; }
-            });
-            return cnt;
-        };
-
         var total = Number($(e.target).find('[name=orderPrice]').val());
 
         var communalPurchaserChecked =[];
@@ -60,10 +110,10 @@ Template.settlementSubmit.events({
 
         // 브라우저가 폼의 submit을 그대로 진행하지 않도록 차단단
         var settlement = {
-            dateOrdered : $(e.target).find('[name=dateOrdered]').val(),
-            dateSettlement : $(e.target).find('[name=dateSettlement]').val(),
+            dateOrdered : date1,
+            dateSettlement : date2,
             category : categoryOptions,
-            orderSummary : $(e.target).find('[name=orderSummary]').val(),
+            orderSummary : orderSummary,
             orderPrice : $(e.target).find('[name=orderPrice]').val(),
             //attachReceipt : $(e.target).find('[name=attachReceipt]').val(),
             purchaser : purchaserOptions,
@@ -71,7 +121,6 @@ Template.settlementSubmit.events({
             settlementCompleted : false
         };
 
-        var file = $('#attachReceipt').get(0).files[0];
         Images.insert(file, function (err, fileObj) {
             if (err){
                 // handle error

@@ -49,16 +49,18 @@
                 {{/each}}
             </div>
         </div>
+        <!--<div class="form-group {{errorClass 'orderSummary'}}">-->
         <div class="form-group">
             <div class="controls">
                 <label class="control-label" for="orderSummary">구매내역</label>
                 <input name="orderSummary" id="orderSummary" type="text" value="" placeholder="Your orderSummary" class="form-control">
+                <!--<span class="help-block">{{errorMessage 'orderSummary'}}</span>-->
             </div>
         </div>
         <div class="form-group">
             <div class="controls">
                 <label class="control-label" for="orderPrice">금액</label>
-                <input name="orderPrice" id="orderPrice" type="text" value="" placeholder="Your orderPrice" class="form-control">
+                <input name="orderPrice" id="orderPrice" type="number" value="" placeholder="Your orderPrice" class="form-control">
             </div>
         </div>
         <div class="form-group">
