@@ -175,18 +175,21 @@ Template.settlementDoIt.onRendered(function() {
             paidToOther += key + '에게 ' + numberWithCommas(paidOther.get(array2[a])) + '원 지불하세요. <br>';
         }
 
+        if(paidToMe === '') paidToMe = '받을 금액이 없습니다';
+        if(paidToOther === '') paidToOther = '지불 할 금액이 없습니다';
+
         this.$('#totalPrice').html(numberWithCommas(totalPrice));
         this.$('#adjustedAmount').html(numberWithCommas(adjustedAmount).toString());
         this.$('#paidMe').html(paidToMe);
         this.$('#paidOther').html(paidToOther);
         this.$('#list').html(trList);
 
-        this.$('#showNakami').attr('style', 'display:""');
+        this.$('#showNakami').attr('style', 'margin-top:10px; display:""');
     }
 });
 
 Template.settlementDoIt.events({
-    'change #category' : function(e){
+    'click #doItBtn' : function(e){
 
         if($('#dateSettlement').val() === ''){
             alert('selected settlement date!!');
