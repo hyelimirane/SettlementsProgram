@@ -23,6 +23,7 @@ Template.settlementDoIt.onRendered(function() {
 
         var memberCnt = 0;
         var trList = '';
+        var divList = '';
 
         for(var i=0; i < list.length; i++){
             var cnt = list[i].category.length;
@@ -33,6 +34,17 @@ Template.settlementDoIt.onRendered(function() {
             });
 
             if(!list[i].settlementCompleted){
+
+                if(i === 0){
+                    divList += '<div class="col-md-1">구매일자</div>'
+                        + '<div class="col-md-2">내용</div>'
+                        + '<div class="col-md-2">구매금액</div>'
+                        + '<div class="col-md-1">구매인원</div>'
+                        + '<div class="col-md-2">할당액</div>'
+                        + '<div class="col-md-2">내가 낸 금액</div>'
+                        + '<div class="col-md-2">정산액</div>';
+                }
+
                 for(var k=0; k < memberCnt; k++) {
                     if(list[i].purchaser[k].value === Meteor.userId()) {
                         if(searchCategory === 'all'){
@@ -48,12 +60,19 @@ Template.settlementDoIt.onRendered(function() {
                                     // 구매내역 건당 내가 낸 금액
                                     var paid = 0;
 
-                                    trList += '<tr>';
+                                    divList += '<div class=col-md-1>' + list[i].dateOrdered.substring(5,10) + '</div>';
+                                    divList += '<div class=col-md-2>' + list[i].orderSummary + '</div>';
+                                    divList += '<div class=col-md-2>' + numberWithCommas(list[i].orderPrice) + '</div>';
+                                    divList += '<div class=col-md-1>' + communalPurchaserCnt + '</div>';
+                                    divList += '<div class=col-md-2>' + numberWithCommas(sharePrice) + '</div>';
+
+/*                                    trList += '<tr>';
                                     trList += '<td align=center>' + list[i].dateOrdered + '</td>';
                                     trList += '<td>' + list[i].orderSummary + '</td>';
                                     trList += '<td align=right>' + numberWithCommas(list[i].orderPrice) + '</td>';
                                     trList += '<td align=center>' + communalPurchaserCnt + '</td>';
-                                    trList += '<td align=right>' + numberWithCommas(sharePrice) + '</td>';
+                                    trList += '<td align=right>' + numberWithCommas(sharePrice) + '</td>';*/
+
                                     for (var y = 0; y < memberCnt; y++) {
                                         if((Meteor.userId() === list[i].purchaser[y].value)
                                             && (list[i].purchaser[y].selected === 'selected')) {
@@ -86,9 +105,13 @@ Template.settlementDoIt.onRendered(function() {
                                     }
                                     adjustedAmount += (sharePrice - paid);
 
-                                    trList += '<td align=right>' + numberWithCommas(paid) + '</td>';
+                                    divList += '<div class=col-md-2>' + numberWithCommas(paid) + '</div>';
+                                    divList += '<div class=col-md-2>' + numberWithCommas((sharePrice - paid)).toString() + '</div>';
+
+
+/*                                    trList += '<td align=right>' + numberWithCommas(paid) + '</td>';
                                     trList += '<td class=\'adjust\' align=right>' + numberWithCommas((sharePrice - paid)).toString() + '</td>';
-                                    trList += '</tr>';
+                                    trList += '</tr>';*/
                                 }
                             }
                         }
@@ -106,12 +129,19 @@ Template.settlementDoIt.onRendered(function() {
 
                                     var paid = 0;
 
-                                    trList += '<tr>';
+                                    divList += '<div class=col-md-1>' + list[i].dateOrdered.substring(5,10) + '</div>';
+                                    divList += '<div class=col-md-2>' + list[i].orderSummary + '</div>';
+                                    divList += '<div class=col-md-2>' + numberWithCommas(list[i].orderPrice) + '</div>';
+                                    divList += '<div class=col-md-1>' + communalPurchaserCnt + '</div>';
+                                    divList += '<div class=col-md-2>' + numberWithCommas(sharePrice) + '</div>';
+
+                                    /*trList += '<tr>';
                                     trList += '<td align=center>' + list[i].dateOrdered + '</td>';
                                     trList += '<td>' + list[i].orderSummary + '</td>';
                                     trList += '<td align=right>' + numberWithCommas(list[i].orderPrice) + ' 원</td>';
                                     trList += '<td align=center>' + communalPurchaserCnt + '</td>';
-                                    trList += '<td align=right>' + numberWithCommas(sharePrice) + ' 원</td>';
+                                    trList += '<td align=right>' + numberWithCommas(sharePrice) + ' 원</td>';*/
+
                                     for (var y = 0; y < memberCnt; y++) {
                                         if((Meteor.userId() === list[i].purchaser[y].value)
                                             && (list[i].purchaser[y].selected === 'selected')) {
@@ -144,9 +174,12 @@ Template.settlementDoIt.onRendered(function() {
                                     }
                                     adjustedAmount += (sharePrice - paid);
 
-                                    trList += '<td align=right>' + numberWithCommas(paid) + ' 원</td>';
+                                    divList += '<div class=col-md-2>' + numberWithCommas(paid) + '</div>';
+                                    divList += '<div class=col-md-2>' + numberWithCommas((sharePrice - paid)).toString() + '</div>';
+
+                                    /*trList += '<td align=right>' + numberWithCommas(paid) + ' 원</td>';
                                     trList += '<td align=right>' + numberWithCommas((sharePrice - paid)).toString() + ' 원</td>';
-                                    trList += '</tr>';
+                                    trList += '</tr>';*/
                                 }
                             }
                         }
@@ -155,8 +188,12 @@ Template.settlementDoIt.onRendered(function() {
             }
         }
 
-        if(trList === '') {
+        /*if(trList === '') {
             trList = '<tr><td colspan=7 align=center>해당 내역이 없습니다.</td></tr>';
+        }*/
+
+        if(divList === '') {
+            divList = '<div class=col-md-12>해당 내역이 없습니다.</div>';
         }
 
         var array1 = paidMe.keys();
@@ -182,7 +219,8 @@ Template.settlementDoIt.onRendered(function() {
         this.$('#adjustedAmount').html(numberWithCommas(adjustedAmount).toString());
         this.$('#paidMe').html(paidToMe);
         this.$('#paidOther').html(paidToOther);
-        this.$('#list').html(trList);
+        /*this.$('#list').html(trList);*/
+        this.$('#divList').html(divList);
 
         this.$('#showNakami').attr('style', 'margin-top:10px; display:""');
     }
