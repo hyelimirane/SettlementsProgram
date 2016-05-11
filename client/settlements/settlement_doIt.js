@@ -36,13 +36,13 @@ Template.settlementDoIt.onRendered(function() {
             if(!list[i].settlementCompleted){
 
                 if(i === 0){
-                    divList += '<div class="col-md-1">구매일자</div>'
-                        + '<div class="col-md-2">내용</div>'
-                        + '<div class="col-md-2">구매금액</div>'
-                        + '<div class="col-md-1">구매인원</div>'
-                        + '<div class="col-md-2">할당액</div>'
-                        + '<div class="col-md-2">내가 낸 금액</div>'
-                        + '<div class="col-md-2">정산액</div>';
+                    divList += '<div class="col-xs-1">구매일자</div>'
+                        + '<div class="col-xs-2">내용</div>'
+                        + '<div class="col-xs-2">구매금액</div>'
+                        + '<div class="col-xs-1">구매인원</div>'
+                        + '<div class="col-xs-2">할당액</div>'
+                        + '<div class="col-xs-2">내가 낸 금액</div>'
+                        + '<div class="col-xs-2">정산액</div>';
                 }
 
                 for(var k=0; k < memberCnt; k++) {
@@ -60,11 +60,11 @@ Template.settlementDoIt.onRendered(function() {
                                     // 구매내역 건당 내가 낸 금액
                                     var paid = 0;
 
-                                    divList += '<div class=col-md-1>' + list[i].dateOrdered.substring(5,10) + '</div>';
-                                    divList += '<div class=col-md-2>' + list[i].orderSummary + '</div>';
-                                    divList += '<div class=col-md-2>' + numberWithCommas(list[i].orderPrice) + '</div>';
-                                    divList += '<div class=col-md-1>' + communalPurchaserCnt + '</div>';
-                                    divList += '<div class=col-md-2>' + numberWithCommas(sharePrice) + '</div>';
+                                    divList += '<div class=col-xs-1>' + list[i].dateOrdered.substring(5,10) + '</div>';
+                                    divList += '<div class=col-xs-2>' + list[i].orderSummary + '</div>';
+                                    divList += '<div class=col-xs-2>' + numberWithCommas(list[i].orderPrice) + '</div>';
+                                    divList += '<div class=col-xs-1>' + communalPurchaserCnt + '</div>';
+                                    divList += '<div class=col-xs-2>' + numberWithCommas(sharePrice) + '</div>';
 
 /*                                    trList += '<tr>';
                                     trList += '<td align=center>' + list[i].dateOrdered + '</td>';
@@ -105,8 +105,8 @@ Template.settlementDoIt.onRendered(function() {
                                     }
                                     adjustedAmount += (sharePrice - paid);
 
-                                    divList += '<div class=col-md-2>' + numberWithCommas(paid) + '</div>';
-                                    divList += '<div class=col-md-2>' + numberWithCommas((sharePrice - paid)).toString() + '</div>';
+                                    divList += '<div class=col-xs-2>' + numberWithCommas(paid) + '</div>';
+                                    divList += '<div class=col-xs-2>' + numberWithCommas((sharePrice - paid)).toString() + '</div>';
 
 
 /*                                    trList += '<td align=right>' + numberWithCommas(paid) + '</td>';
@@ -129,11 +129,11 @@ Template.settlementDoIt.onRendered(function() {
 
                                     var paid = 0;
 
-                                    divList += '<div class=col-md-1>' + list[i].dateOrdered.substring(5,10) + '</div>';
-                                    divList += '<div class=col-md-2>' + list[i].orderSummary + '</div>';
-                                    divList += '<div class=col-md-2>' + numberWithCommas(list[i].orderPrice) + '</div>';
-                                    divList += '<div class=col-md-1>' + communalPurchaserCnt + '</div>';
-                                    divList += '<div class=col-md-2>' + numberWithCommas(sharePrice) + '</div>';
+                                    divList += '<div class=col-xs-1>' + list[i].dateOrdered.substring(5,10) + '</div>';
+                                    divList += '<div class=col-xs-2>' + list[i].orderSummary + '</div>';
+                                    divList += '<div class=col-xs-2>' + numberWithCommas(list[i].orderPrice) + '</div>';
+                                    divList += '<div class=col-xs-1>' + communalPurchaserCnt + '</div>';
+                                    divList += '<div class=col-xs-2>' + numberWithCommas(sharePrice) + '</div>';
 
                                     /*trList += '<tr>';
                                     trList += '<td align=center>' + list[i].dateOrdered + '</td>';
@@ -174,8 +174,8 @@ Template.settlementDoIt.onRendered(function() {
                                     }
                                     adjustedAmount += (sharePrice - paid);
 
-                                    divList += '<div class=col-md-2>' + numberWithCommas(paid) + '</div>';
-                                    divList += '<div class=col-md-2>' + numberWithCommas((sharePrice - paid)).toString() + '</div>';
+                                    divList += '<div class=col-xs-2>' + numberWithCommas(paid) + '</div>';
+                                    divList += '<div class=col-xs-2>' + numberWithCommas((sharePrice - paid)).toString() + '</div>';
 
                                     /*trList += '<td align=right>' + numberWithCommas(paid) + ' 원</td>';
                                     trList += '<td align=right>' + numberWithCommas((sharePrice - paid)).toString() + ' 원</td>';
@@ -193,7 +193,7 @@ Template.settlementDoIt.onRendered(function() {
         }*/
 
         if(divList === '') {
-            divList = '<div class=col-md-12>해당 내역이 없습니다.</div>';
+            divList = '<div class=col-xs-12>해당 내역이 없습니다.</div>';
         }
 
         var array1 = paidMe.keys();
