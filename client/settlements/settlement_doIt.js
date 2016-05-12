@@ -35,7 +35,7 @@ Template.settlementDoIt.onRendered(function() {
 
             if(!list[i].settlementCompleted){
 
-                if(i === 0){
+/*                if(i === 0){
                     divList += '<div class="col-xs-1">구매일자</div>'
                         + '<div class="col-xs-2">내용</div>'
                         + '<div class="col-xs-2">구매금액</div>'
@@ -43,7 +43,7 @@ Template.settlementDoIt.onRendered(function() {
                         + '<div class="col-xs-2">할당액</div>'
                         + '<div class="col-xs-2">내가 낸 금액</div>'
                         + '<div class="col-xs-2">정산액</div>';
-                }
+                }*/
 
                 for(var k=0; k < memberCnt; k++) {
                     if(list[i].purchaser[k].value === Meteor.userId()) {
@@ -60,6 +60,7 @@ Template.settlementDoIt.onRendered(function() {
                                     // 구매내역 건당 내가 낸 금액
                                     var paid = 0;
 
+                                    divList += '<div class=row>';
                                     divList += '<div class=col-xs-1>' + list[i].dateOrdered.substring(5,10) + '</div>';
                                     divList += '<div class=col-xs-2>' + list[i].orderSummary + '</div>';
                                     divList += '<div class=col-xs-2>' + numberWithCommas(list[i].orderPrice) + '</div>';
@@ -107,6 +108,8 @@ Template.settlementDoIt.onRendered(function() {
 
                                     divList += '<div class=col-xs-2>' + numberWithCommas(paid) + '</div>';
                                     divList += '<div class=col-xs-2>' + numberWithCommas((sharePrice - paid)).toString() + '</div>';
+                                    divList += '</div>';
+                                    divList += '<hr style=border: solid 1px gray;>';
 
 
 /*                                    trList += '<td align=right>' + numberWithCommas(paid) + '</td>';
@@ -129,6 +132,7 @@ Template.settlementDoIt.onRendered(function() {
 
                                     var paid = 0;
 
+                                    divList += '<div class=row>';
                                     divList += '<div class=col-xs-1>' + list[i].dateOrdered.substring(5,10) + '</div>';
                                     divList += '<div class=col-xs-2>' + list[i].orderSummary + '</div>';
                                     divList += '<div class=col-xs-2>' + numberWithCommas(list[i].orderPrice) + '</div>';
@@ -176,6 +180,8 @@ Template.settlementDoIt.onRendered(function() {
 
                                     divList += '<div class=col-xs-2>' + numberWithCommas(paid) + '</div>';
                                     divList += '<div class=col-xs-2>' + numberWithCommas((sharePrice - paid)).toString() + '</div>';
+                                    divList += '</div>';
+                                    divList += '<hr style=border: solid 1px gray;>';
 
                                     /*trList += '<td align=right>' + numberWithCommas(paid) + ' 원</td>';
                                     trList += '<td align=right>' + numberWithCommas((sharePrice - paid)).toString() + ' 원</td>';

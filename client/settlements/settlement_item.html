@@ -20,7 +20,7 @@
                     </div>
                     <div class="controls">
                         <label class="control-label" for="communalPurchaser">공동 구매자</label>
-                        <div class="row" style="float: right; margin-left: -10px;">
+                        <div class="row" style="margin-left: -10px;">
                             {{#each communalPurchaser}}
                                 {{>communalPurchasers}}
                             {{/each}}
@@ -63,7 +63,7 @@
 </template>
 
 <template name="communalPurchasers">
-    <div class="col-md-1" style="float: left">
+    <div class="col-xs-4" style="float: left">
         <input type="checkbox" value="{{value}}" name="communalPurchaser" text="{{text}}" checked="{{checked}}" disabled >{{text}}
     </div>
 </template>
