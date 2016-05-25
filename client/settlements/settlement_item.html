@@ -36,6 +36,7 @@
                     </div>
                     <div class="controls" style="margin-bottom:5px;">
                         <label class="control-label" for="category">영수증</label>
+                        <br>
                         <a href="{{receipt.url}}"><img src="{{receipt.url}}" alt="" width="200px" height="300px" /></a>
                     </div>
                     <div class="controls">
@@ -63,7 +64,10 @@
 </template>
 
 <template name="communalPurchasers">
-    <div class="col-xs-4" style="float: left">
-        <input type="checkbox" value="{{value}}" name="communalPurchaser" text="{{text}}" checked="{{checked}}" disabled >{{text}}
+    <div class="col-xs-1" style="float: left">
+        <input type="checkbox" value="{{value}}" name="communalPurchaser" text="{{text}}" checked="{{checked}}" disabled >
+    </div>
+    <div class="col-xs-3" style="float: left; margin-left: -10px;">
+        <span>{{text}}</span>
     </div>
 </template>
