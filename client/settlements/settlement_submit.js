@@ -14,6 +14,26 @@ Template.settlementSubmit.onRendered(function() {
     this.$('#date2').datetimepicker({
         format: 'YYYY-MM-05'
     });
+
+    $("#date1").on("dp.change", function (e) {
+        console.log('aaaaa');
+        var minDate = new Date(e.date);
+
+        var day = Number(minDate.getDate());
+
+        console.log('day :: ' + day);
+        if(day <= 4){
+            console.log('e.date :: ' + e.date);
+            $('#date2').data("DateTimePicker").minDate(e.date);
+        }
+        else{
+            console.log('mindate :: ' + minDate);
+            minDate = new Date(minDate.setMonth(minDate.getMonth() + 1));
+
+            console.log('mindate2 :: ' + minDate);
+            $('#date2').data("DateTimePicker").minDate(minDate);
+        }
+    });
 });
 
 //Template.settlementSubmit.helpers({
@@ -26,6 +46,7 @@ Template.settlementSubmit.onRendered(function() {
 //});
 
 Template.settlementSubmit.events({
+
     'submit form' : function(e){
         e.preventDefault();
 

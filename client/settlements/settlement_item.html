@@ -2,7 +2,17 @@
     <div class="post">
         <div class="post-content">
             <div class="showNakami">
-                <h3><a href="#">{{dateSettlement}}, {{orderSummary}}</a></h3>
+                <h3><a href="#">
+                    {{#if expired}}
+                        {{#if showSCBtn}}
+                            <p style="color:red;">{{dateSettlement}}, {{orderSummary}}</p>
+                        {{else}}
+                            {{dateSettlement}}, {{orderSummary}}
+                        {{/if}}
+                    {{else}}
+                        {{dateSettlement}}, {{orderSummary}}
+                    {{/if}}
+                </a></h3>
             </div>
             <div id="nakami_{{_id}}" name="nakami" style="display:none">
                 <div class="form-group">

@@ -22,6 +22,19 @@ Template.settlementItem.helpers({
         return isOwn;
     },
 
+    expired : function(){
+        var sDate = new Date(this.dateSettlement);
+        var toDate = new Date();
+        toDate.setDate(5);
+
+        if(sDate.getTime() < toDate.getTime()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    },
+
     category : function(){
         return this.category[0].text;
     },
