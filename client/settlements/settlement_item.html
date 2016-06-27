@@ -30,11 +30,9 @@
                     </div>
                     <div class="controls">
                         <label class="control-label" for="communalPurchaser">공동 구매자</label>
-                        <div class="row" style="margin-left: -10px;">
-                            {{#each communalPurchaser}}
-                                {{>communalPurchasers}}
-                            {{/each}}
-                        </div>
+                        {{#each communalPurchaser}}
+                            {{>communalPurchasers}}
+                        {{/each}}
                     </div>
                     <div class="controls">
                         <label class="control-label" for="orderSummary">구매내역</label>
@@ -74,10 +72,12 @@
 </template>
 
 <template name="communalPurchasers">
-    <div class="col-xs-1" style="float: left">
-        <input type="checkbox" value="{{value}}" name="communalPurchaser" text="{{text}}" checked="{{checked}}" disabled >
-    </div>
-    <div class="col-xs-3" style="float: left; margin-left: -10px;">
-        <span>{{text}}</span>
+    <div class="form-inline">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="{{value}}" name="communalPurchaser" text="{{text}}" checked="{{checked}}" class="form-control" disabled="disabled"> {{text}}
+            </label>
+        </div>
+        <input type="number" value="{{sharePrice}}" name="sharePrice" class="form-control" readonly="readonly">
     </div>
 </template>

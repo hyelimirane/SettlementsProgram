@@ -37,18 +37,6 @@
                 </select>
             </div>
         </div>
-        <div class="form-group">
-            <div class="controls">
-                <label class="control-label" for="communalPurchaser">공동구매자</label>
-            </div>
-            <div class="row">
-                {{#each purchasersList}}
-                    <div class="col-md-1" style="float: left">
-                        <input type="checkbox" value="{{_id}}" name="communalPurchaser" text="{{username}}" checked="checked" > {{username}}
-                    </div>
-                {{/each}}
-            </div>
-        </div>
         <!--<div class="form-group {{errorClass 'orderSummary'}}">-->
         <div class="form-group">
             <div class="controls">
@@ -61,6 +49,21 @@
             <div class="controls">
                 <label class="control-label" for="orderPrice">금액</label>
                 <input name="orderPrice" id="orderPrice" type="number" value="" placeholder="Your orderPrice" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="controls">
+                <label class="control-label" for="communalPurchaser">공동구매자</label>
+                {{#each purchasersList}}
+                    <div class="form-inline">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="{{_id}}" name="communalPurchaser" text="{{username}}" checked="checked" class="form-control"> {{username}}
+                            </label>
+                        </div>
+                        <input type="number" value="" name="sharePrice" class="form-control">
+                    </div>
+                {{/each}}
             </div>
         </div>
         <div class="form-group">

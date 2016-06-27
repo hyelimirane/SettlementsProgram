@@ -12,17 +12,11 @@ Template.settlementDoIt.onRendered(function() {
 
         // 총금액
         var totalPrice = 0;
-        // 할당액
-        var sharePrice = 0;
-        // 정산액
-        var adjustedAmount = 0;
         // 지불할 사람
         var paidOther = new Map();
         // 받을 사람
         var paidMe = new Map();
 
-        var memberCnt = 0;
-        var trList = '';
         var divList = '';
 
         for(var i=0; i < list.length; i++){
@@ -33,6 +27,7 @@ Template.settlementDoIt.onRendered(function() {
                 if(this.checked) { communalPurchaserCnt++; }
             });
 
+            // settlementcompleted가 false인 것(true : 정산완료, false: 미정산)
             if(!list[i].settlementCompleted){
 
                 for(var k=0; k < memberCnt; k++) {
@@ -42,10 +37,6 @@ Template.settlementDoIt.onRendered(function() {
                                 if(list[i].category[j].selected === 'selected'){
 
                                     totalPrice += Number(list[i].orderPrice);
-
-                                    if (communalPurchaserCnt !== 0) {
-                                        sharePrice = Number(list[i].orderPrice) / communalPurchaserCnt;
-                                    }
 
                                     // 구매내역 건당 내가 낸 금액
                                     var paid = 0;
@@ -89,8 +80,6 @@ Template.settlementDoIt.onRendered(function() {
                                             }
                                         }
                                     }
-                                    // 정산액 = 할당 액 - 내가 낸 금액
-                                    adjustedAmount += (sharePrice - paid);
 
                                     divList += '<div class=col-xs-3 style=text-align:right>' + numberWithCommas(paid) + '</div>';
                                     //divList += '<div class=col-xs-2>' + numberWithCommas((sharePrice - paid)).toString() + '</div>';
@@ -106,10 +95,6 @@ Template.settlementDoIt.onRendered(function() {
                                     && list[i].category[j].selected === 'selected'){
 
                                     totalPrice += Number(list[i].orderPrice);
-
-                                    if(communalPurchaserCnt !== 0) {
-                                        sharePrice = Number(list[i].orderPrice) / Number(communalPurchaserCnt);
-                                    }
 
                                     var paid = 0;
 
@@ -153,9 +138,6 @@ Template.settlementDoIt.onRendered(function() {
                                         }
                                     }
 
-                                    // 정산액 = 할당 액 - 내가 낸 금액
-                                    adjustedAmount += (Math.round(sharePrice) - paid);
-
                                     divList += '<div class=col-xs-3 style=text-align:right>' + numberWithCommas(paid) + '</div>';
                                     //divList += '<div class=col-xs-2>' + numberWithCommas((sharePrice - paid)).toString() + '</div>';
                                     divList += '</div>';
@@ -192,7 +174,6 @@ Template.settlementDoIt.onRendered(function() {
         if(paidToOther === '') paidToOther = '지불 할 금액이 없습니다';
 
         this.$('#totalPrice').html(numberWithCommas(totalPrice));
-        this.$('#adjustedAmount').html(numberWithCommas(Math.round(adjustedAmount * 0.01) * 100).toString());
         this.$('#paidMe').html(paidToMe);
         this.$('#paidOther').html(paidToOther);
         /*this.$('#list').html(trList);*/

@@ -4,29 +4,29 @@
 Template.settlementEdit.onRendered(function() {
     this.$('#date1').datetimepicker({
         format: 'YYYY-MM-DD'
-    });
+    }),
 
     this.$('#date2').datetimepicker({
         format: 'YYYY-MM-05'
-    });
+    }),
 
     $("#date1").on("dp.change", function (e) {
-        console.log('aaaaa');
         var minDate = new Date(e.date);
-
         var day = Number(minDate.getDate());
 
-        console.log('day :: ' + day);
         if(day <= 4){
-            console.log('e.date :: ' + e.date);
             $('#date2').data("DateTimePicker").minDate(e.date);
         }
         else{
-            console.log('mindate :: ' + minDate);
             minDate = new Date(minDate.setMonth(minDate.getMonth() + 1));
-
-            console.log('mindate2 :: ' + minDate);
             $('#date2').data("DateTimePicker").minDate(minDate);
+        }
+    }),
+
+    $("[name=sharePrice]").each(function(){
+        if(this.value === "0"){
+            console.log(this);
+            this.readOnly = true;
         }
     });
 });
@@ -78,8 +78,34 @@ Template.settlementEdit.helpers({
 
 Template.settlementEdit.events({
 
+    'click .form-inline .checkbox' : function(e){
+        //e.preventDefault();
+        if(e.target.checked){
+            console.log('checked');
+            $(e.target.parentElement.parentElement.parentElement).find('input')[1].value = '';
+            $(e.target.parentElement.parentElement.parentElement).find('input')[1].readOnly = false;
+            //$(e.target.parentElement.parentElement.parentElement).find('input')[1].checked = true;
+        }
+        else {
+            console.log('unchecked');
+            $(e.target.parentElement.parentElement.parentElement).find('input')[1].value = 0;
+            $(e.target.parentElement.parentElement.parentElement).find('input')[1].readOnly = true;
+            //$(e.target.parentElement.parentElement.parentElement).find('input')[1].checked = false;
+        }
+    },
+
     'submit form' : function(e){
+        // 브라우저가 폼의 submit을 그대로 진행하지 않도록 차단단
         e.preventDefault();
+
+        // 공동구매자 인원수
+        var count = function(){
+            var cnt = 0;
+            $(e.target).find('[name=communalPurchaser]').each(function(){
+                if(this.checked) { cnt++; }
+            });
+            return cnt;
+        };
 
         var categoryOptions = [];
         categoryOptions.push({value:$(e.target).find('[name=category]').val(), text:$(e.target).find('[name=category] :selected').text(), selected:'selected'});
@@ -97,26 +123,25 @@ Template.settlementEdit.events({
             }
         });
 
-        var count = function(){
-            var cnt = 0;
-            $(e.target).find('[name=communalPurchaser]').each(function(){
-                if(this.checked) { cnt++; }
-            });
-            return cnt;
-        };
-
         var total = Number($(e.target).find('[name=orderPrice]').val());
 
         var communalPurchaserChecked =[];
         $(e.target).find('[name=communalPurchaser]').each(function(){
-            debugger;
-            communalPurchaserChecked.push({value: this.value, text:this.attributes.text.value, checked :this.checked, sharePrice: total/count()})
+            var sharePrice = 0;
+            if(this.checked){
+                sharePrice = $(this.parentElement.parentElement.parentElement).find('input')[1].value;
+                console.log('sharePrice1 :: ', sharePrice);
+                if(sharePrice === 0){
+                    sharePrice = total / count();
+                    console.log('sharePrice2 :: ', sharePrice);
+                }
+            }
+            communalPurchaserChecked.push({value: this.value, text:this.attributes.text.value, checked :this.checked, sharePrice: sharePrice});
         });
 
         //categoryOptions = JSON.stringify(categoryOptions).replace(/\\/g, "");
         //purchaserOptions = JSON.stringify(purchaserOptions).replace(/\\/g, "");
 
-        // 브라우저가 폼의 submit을 그대로 진행하지 않도록 차단단
         var settlement = {
             dateOrdered : $(e.target).find('[name=dateOrdered]').val(),
             dateSettlement : $(e.target).find('[name=dateSettlement]').val(),
@@ -134,7 +159,6 @@ Template.settlementEdit.events({
         if(file === undefined){
 
             settlement.attachReceipt = $(e.target).find('[name=receiptID]').val();
-            debugger;
 
             Meteor.call('settlementRemove', this._id, function(error, result){
                 if(error){

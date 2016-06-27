@@ -16,22 +16,21 @@ Template.settlementSubmit.onRendered(function() {
     });
 
     $("#date1").on("dp.change", function (e) {
-        console.log('aaaaa');
-        var minDate = new Date(e.date);
+        var minDate1 = new Date(e.date);
+        var date2 = Number($('#date2 input').val().substr(5, 2)) -1;
 
-        var day = Number(minDate.getDate());
-
-        console.log('day :: ' + day);
-        if(day <= 4){
-            console.log('e.date :: ' + e.date);
-            $('#date2').data("DateTimePicker").minDate(e.date);
+        var day = Number(minDate1.getDate());
+        var month =  Number(minDate1.getMonth());
+debugger;
+        if(month < date2){
+            $('#date2').data("DateTimePicker").minDate(minDate1);
+        }
+        else if(month == date2 && day <= 4){
+            $('#date2').data("DateTimePicker").minDate(minDate1);
         }
         else{
-            console.log('mindate :: ' + minDate);
-            minDate = new Date(minDate.setMonth(minDate.getMonth() + 1));
-
-            console.log('mindate2 :: ' + minDate);
-            $('#date2').data("DateTimePicker").minDate(minDate);
+            minDate1 = new Date(minDate1.setMonth(minDate1.getMonth() + 1));
+            $('#date2').data("DateTimePicker").minDate(minDate1);
         }
     });
 });
@@ -47,9 +46,27 @@ Template.settlementSubmit.onRendered(function() {
 
 Template.settlementSubmit.events({
 
+    'click .form-inline .checkbox' : function(e){
+        //e.preventDefault();
+        if(e.target.checked){
+            console.log('checked');
+            $(e.target.parentElement.parentElement.parentElement).find('input')[1].value = '';
+            $(e.target.parentElement.parentElement.parentElement).find('input')[1].readOnly = false;
+            //$(e.target.parentElement.parentElement.parentElement).find('input')[1].checked = true;
+        }
+        else {
+            console.log('unchecked');
+            $(e.target.parentElement.parentElement.parentElement).find('input')[1].value = 0;
+            $(e.target.parentElement.parentElement.parentElement).find('input')[1].readOnly = true;
+            //$(e.target.parentElement.parentElement.parentElement).find('input')[1].checked = false;
+        }
+    },
+
     'submit form' : function(e){
+        // 브라우저가 폼의 submit을 그대로 진행하지 않도록 차단함.
         e.preventDefault();
 
+        // 공동구매자 인원수
         var count = function(){
             var cnt = 0;
             $(e.target).find('[name=communalPurchaser]').each(function(){
@@ -121,15 +138,17 @@ Template.settlementSubmit.events({
         $(e.target).find('[name=communalPurchaser]').each(function(){
             var sharePrice = 0;
             if(this.checked){
-                sharePrice = total / count();
+                sharePrice = $(this.parentElement.parentElement.parentElement).find('input')[1].value;
+                if(sharePrice === 0){
+                    sharePrice = total / count();
+                }
             }
-            communalPurchaserChecked.push({value: this.value, text:this.attributes.text.value, checked :this.checked, sharePrice: sharePrice})
+            communalPurchaserChecked.push({value: this.value, text:this.attributes.text.value, checked :this.checked, sharePrice: sharePrice});
         });
 
         //categoryOptions = JSON.stringify(categoryOptions).replace(/\\/g, "");
         //purchaserOptions = JSON.stringify(purchaserOptions).replace(/\\/g, "");
 
-        // 브라우저가 폼의 submit을 그대로 진행하지 않도록 차단단
         var settlement = {
             dateOrdered : date1,
             dateSettlement : date2,
