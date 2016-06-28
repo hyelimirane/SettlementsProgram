@@ -124,3 +124,9 @@ Template.settlementItem.events({
         }
     },
 });
+
+Template.communalPurchasers.helpers({
+    sharePrice : function() {
+        return numberWithCommas(this.sharePrice);
+    }
+});

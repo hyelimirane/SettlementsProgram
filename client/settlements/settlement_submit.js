@@ -21,7 +21,6 @@ Template.settlementSubmit.onRendered(function() {
 
         var day = Number(minDate1.getDate());
         var month =  Number(minDate1.getMonth());
-debugger;
         if(month < date2){
             $('#date2').data("DateTimePicker").minDate(minDate1);
         }
@@ -46,18 +45,18 @@ debugger;
 
 Template.settlementSubmit.events({
 
-    'click .form-inline .checkbox' : function(e){
+    'click .form-inline .checkbox-inline' : function(e){
         //e.preventDefault();
         if(e.target.checked){
             console.log('checked');
-            $(e.target.parentElement.parentElement.parentElement).find('input')[1].value = '';
-            $(e.target.parentElement.parentElement.parentElement).find('input')[1].readOnly = false;
+            $(e.target.parentElement.parentElement).find('input')[1].value = '';
+            $(e.target.parentElement.parentElement).find('input')[1].readOnly = false;
             //$(e.target.parentElement.parentElement.parentElement).find('input')[1].checked = true;
         }
         else {
             console.log('unchecked');
-            $(e.target.parentElement.parentElement.parentElement).find('input')[1].value = 0;
-            $(e.target.parentElement.parentElement.parentElement).find('input')[1].readOnly = true;
+            $(e.target.parentElement.parentElement).find('input')[1].value = 0;
+            $(e.target.parentElement.parentElement).find('input')[1].readOnly = true;
             //$(e.target.parentElement.parentElement.parentElement).find('input')[1].checked = false;
         }
     },
@@ -133,12 +132,12 @@ Template.settlementSubmit.events({
         });
 
         var total = Number($(e.target).find('[name=orderPrice]').val());
-
         var communalPurchaserChecked =[];
         $(e.target).find('[name=communalPurchaser]').each(function(){
             var sharePrice = 0;
             if(this.checked){
-                sharePrice = $(this.parentElement.parentElement.parentElement).find('input')[1].value;
+                sharePrice = $(this.parentElement.parentElement).find('input')[1].value;
+
                 if(sharePrice === 0){
                     sharePrice = total / count();
                 }

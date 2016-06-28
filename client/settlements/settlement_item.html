@@ -20,28 +20,40 @@
                         <label class="control-label" for="dateOrdered">구매일자</label>
                         <span>{{dateOrdered}}</span>
                     </div>
+                </div>
+                <div class="form-group">
                     <div class="controls">
                         <label class="control-label" for="category">category</label>
                         <span>{{category}}</span>
                     </div>
+                </div>
+                <div class="form-group">
                     <div class="controls">
                         <label class="control-label" for="purchaser">지불한 사람</label>
                         <span>{{purchaser}}</span>
                     </div>
+                </div>
+                <div class="form-group">
                     <div class="controls">
                         <label class="control-label" for="communalPurchaser">공동 구매자</label>
-                        {{#each communalPurchaser}}
-                            {{>communalPurchasers}}
-                        {{/each}}
                     </div>
+                    {{#each communalPurchaser}}
+                        {{>communalPurchasers}}
+                    {{/each}}
+                </div>
+                <div class="form-group">
                     <div class="controls">
                         <label class="control-label" for="orderSummary">구매내역</label>
                         <span>{{orderSummary}}</span>
                     </div>
+                </div>
+                <div class="form-group">
                     <div class="controls">
                         <label class="control-label" for="orderPrice">금액</label>
                         <span>{{orderPrice}} 원</span>
                     </div>
+                </div>
+                <div class="form-group">
                     <div class="controls" style="margin-bottom:5px;">
                         <label class="control-label" for="category">영수증</label>
                         <br>
@@ -73,11 +85,8 @@
 
 <template name="communalPurchasers">
     <div class="form-inline">
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="{{value}}" name="communalPurchaser" text="{{text}}" checked="{{checked}}" class="form-control" disabled="disabled"> {{text}}
-            </label>
-        </div>
-        <input type="number" value="{{sharePrice}}" name="sharePrice" class="form-control" readonly="readonly">
+        <label class="checkbox-inline">
+            <input type="checkbox" value="{{value}}" name="communalPurchaser" text="{{text}}" checked="{{checked}}" disabled="disabled"> {{text}} / {{sharePrice}}
+        </label>
     </div>
 </template>

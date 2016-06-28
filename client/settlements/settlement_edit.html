@@ -53,12 +53,10 @@
                 <label class="control-label" for="communalPurchaser">공동구매자</label>
                 {{#each purchasersList}}
                     <div class="form-inline">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="{{value}}" name="communalPurchaser" text="{{text}}" checked="{{checked}}" class="form-control"> {{text}}
-                            </label>
-                        </div>
-                        <input type="number" value="{{sharePrice}}" name="sharePrice" class="form-control">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="{{value}}" name="communalPurchaser" text="{{text}}" checked="{{checked}}"> {{text}}
+                        </label>
+                        <input type="number" value="{{sharePrice}}" name="sharePrice" class="form-control input-sm" placeholder="금액을 입력하세요.">
                     </div>
                 {{/each}}
             </div>
