@@ -110,6 +110,7 @@ Template.settlementSubmit.events({
             return false;
         }
 
+
         if(!file){
             alert("첨부파일 확인 해 주세요.");
             return false;
@@ -131,19 +132,26 @@ Template.settlementSubmit.events({
             }
         });
 
-        var total = Number($(e.target).find('[name=orderPrice]').val());
+        var total = 0;
         var communalPurchaserChecked =[];
         $(e.target).find('[name=communalPurchaser]').each(function(){
             var sharePrice = 0;
             if(this.checked){
                 sharePrice = $(this.parentElement.parentElement).find('input')[1].value;
 
-                if(sharePrice === 0){
-                    sharePrice = total / count();
+                if(sharePrice === 0 || sharePrice === '0'){
+                    sharePrice = Number(orderPrice) / count();
                 }
+
+                total += Number(sharePrice);
             }
             communalPurchaserChecked.push({value: this.value, text:this.attributes.text.value, checked :this.checked, sharePrice: sharePrice});
         });
+
+        if(total !== Number(orderPrice)){
+            alert("구매금액과 공동구매자 금액의 합이 맞지 않습니다.");
+            return false;
+        }
 
         //categoryOptions = JSON.stringify(categoryOptions).replace(/\\/g, "");
         //purchaserOptions = JSON.stringify(purchaserOptions).replace(/\\/g, "");
