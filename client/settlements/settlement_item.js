@@ -22,10 +22,10 @@ Template.settlementItem.helpers({
         return isOwn;
     },
 
+    // 정산기간 만료
     expired : function(){
         var sDate = new Date(this.dateSettlement);
         var toDate = new Date();
-        toDate.setDate(5);
 
         if(sDate.getTime() < toDate.getTime()){
             return true;
