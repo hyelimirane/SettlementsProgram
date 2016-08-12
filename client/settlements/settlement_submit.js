@@ -17,20 +17,33 @@ Template.settlementSubmit.onRendered(function() {
 
     $("#date1").on("dp.change", function (e) {
         var minDate1 = new Date(e.date);
-        var date2 = Number($('#date2 input').val().substr(5, 2)) -1;
+        var date2Month = Number($('#date2 input').val().substr(5, 2)) -1;
 
-        var day = Number(minDate1.getDate());
-        var month =  Number(minDate1.getMonth());
-        if(month < date2){
-            $('#date2').data("DateTimePicker").minDate(minDate1);
+        var date1Day = Number(minDate1.getDate());
+        var date1Month =  Number(minDate1.getMonth());
+        var date1Year = Number(minDate1.getFullYear());
+
+        // 정산일자가 지정되어 있지 않을 때는 구매일자의 월로 지정
+        console.log('date2Month :: ', date2Month, ' month :: ', month);
+        if(date2Month === -1){
+            date2Month = date1Month;
         }
-        else if(month == date2 && day <= 4){
+
+        if(date1Month < date2Month){
             $('#date2').data("DateTimePicker").minDate(minDate1);
+            console.log('month < date2Month');
+        }
+        else if(date1Month === date2Month && date1Day < 5){
+            $('#date2').data("DateTimePicker").minDate(minDate1);
+            console.log('month === date2Month && day < 5');
         }
         else{
             minDate1 = new Date(minDate1.setMonth(minDate1.getMonth() + 1));
             $('#date2').data("DateTimePicker").minDate(minDate1);
+            console.log('else');
         }
+
+        $('#date2').val();
     });
 });
 
